@@ -36,7 +36,7 @@ def get_random_card():
 
 def generate_hand():
 	hand = []
-	while len(hand) < 8:
+	while len(hand) < 11:
 		current_card = get_random_card()
 		if current_card in hand:
 			count = 0
@@ -50,13 +50,21 @@ def generate_hand():
 			hand.append(current_card[0])
 	return """
 	{}
+
+	Your opening hand is:
 	{}
 	{}
 	{}
 	{}
 	{}
 	{}
-	""".format(hand[0], hand[1], hand[2], hand[3], hand[4], hand[5], hand[6])
+	{}
+
+	Your next three draws will be:
+	{}
+	{}
+	{}
+	""".format(deck_count(), hand[0], hand[1], hand[2], hand[3], hand[4], hand[5], hand[6], hand[7], hand[8], hand[9])
 
 
 
