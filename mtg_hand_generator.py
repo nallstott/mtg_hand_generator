@@ -1,24 +1,31 @@
-# Go back later and make this work with a csv file as a single input, run all the functions, and then return the hand
-# When adding cards, details go [Number in deck, card type, CMC, notable details]
 import random
+import csv
 
-deck = {}
+with open('deck.csv', 'r') as deck_csv:
+	reader = csv.reader(deck_csv)
+	with open('deck_writer.csv', 'w') as deck_file_csv:
+		writer = csv.writer(deck_file_csv)
+		deck = {rows[0]: rows[1:] for rows in reader}
 
-def add_cards(card_name, details):
-	deck[card_name.lower()] = details
+for card in deck.items():
+	card[1][0] = int(card[1][0])
 
-def remove_cards(card_name, number_to_remove):
-	card_name = card_name.lower()
-	if card_name in deck.keys():
-		if deck[card_name] == 0:
-			del deck[card_name]
-		else:
-			deck[card_name] -= number_to_remove
-	else:
-		print('Sorry, {} isn\'t in the deck right now. Add it using add_cards.'.format(card_name))
 
-def clear_deck():
-	deck.clear()
+# def add_cards(card_name, details):
+# 	deck[card_name.lower()] = details
+
+# def remove_cards(card_name, number_to_remove):
+# 	card_name = card_name.lower()
+# 	if card_name in deck.keys():
+# 		if deck[card_name][1][0] == 0:
+# 			del deck[card_name]
+# 		else:
+# 			deck[card_name][1][0] -= number_to_remove
+# 	else:
+# 		print('Sorry, {} isn\'t in the deck right now. Add it using add_cards.'.format(card_name))
+
+# def clear_deck():
+# 	deck.clear()
 
 def deck_count():
 	count = 0
@@ -45,55 +52,26 @@ def generate_hand():
 			if count > current_card[1][0]:
 				continue
 			else:
-				hand.append(current_card[0])
+				hand.append(current_card)
 		else:
-			hand.append(current_card[0])
+			hand.append(current_card)
 	return """
 	{}
 
 	Your opening hand is:
-	{}
-	{}
-	{}
-	{}
-	{}
-	{}
-	{}
+	{}: a {} type card that's cmc {},
+	{}: a {} type card that's cmc {},
+	{}: a {} type card that's cmc {},
+	{}: a {} type card that's cmc {},
+	{}: a {} type card that's cmc {},
+	{}: a {} type card that's cmc {},
+	{}: a {} type card that's cmc {},
 
 	Your next three draws will be:
-	{}
-	{}
-	{}
-	""".format(deck_count(), hand[0], hand[1], hand[2], hand[3], hand[4], hand[5], hand[6], hand[7], hand[8], hand[9])
+	{}: a {} type card that's cmc {},
+	{}: a {} type card that's cmc {},
+	{}: a {} type card that's cmc {},
+	""".format(deck_count(), hand[0][0], hand[0][1][1], hand[0][1][2], hand[1][0], hand[1][1][1], hand[1][1][2], hand[2][0], hand[2][1][1], hand[2][1][2], hand[3][0], hand[3][1][1], hand[3][1][2], hand[4][0], hand[4][1][1], hand[4][1][2], hand[5][0], hand[5][1][1], hand[5][1][2], hand[6][0], hand[6][1][1], hand[6][1][2], hand[7][0], hand[7][1][1], hand[7][1][2], hand[8][0], hand[8][1][1], hand[8][1][2], hand[9][0], hand[9][1][1], hand[9][1][2])
 
-
-
-
-# Clear out this section, just make sure to follow the correct syntax: add_cards('card_name', [number in deck, 'card type', 'mana cost', 'notable traits'])
-# Mana costs
-# C = Colorless, R = Red, W = White, G = Green, B = Black, U = Blue
-add_cards('Light Up The Stage', [3, 'sorcery', 'CCR', 'spectacle'])
-add_cards('Lightning Bolt', [4, 'instant', 'R', ])
-add_cards('Goblin Guide', [4, 'creature', 'R', 'haste'])
-add_cards('Monestary Swiftspear', [4, 'creature', 'R', 'haste and prowess'])
-add_cards('Eidolon of the Great Revel', [4, 'creature', 'RR', 'damage on cast 3cmc or less'])
-add_cards('Lava Spike', [4, 'sorcery', 'R'])
-add_cards('Boros Charm', [4, 'instant', 'RW', '4 damage, indestructable or doublestrike creatures'])
-add_cards('Searing Blaze', [3, 'instant', 'RR', 'w/landfall, 3 damage to creature and player'])
-add_cards('Lightning Helix', [2, 'instant', 'RW', '3 damage to target, gain 3 life'])
-add_cards('Rift Bolt', [2, 'sorcery', 'CCR', 'suspend R'])
-add_cards('Skewer the Critics', [4, 'sorcery', 'CCR', 'spectacle'])
-add_cards('Skullcrack', [2, 'instant', 'CR', 'prevent lifegain'])
-add_cards('Grim Lavamancer', [1, 'creature', 'R', 'exile 2 cards for 2 damage to target'])
-add_cards('Wooded Foothills', [3, 'land', 'none', 'RG fetch'])
-add_cards('Arid Mesa', [3, 'land', 'none', 'RW fetch'])
-add_cards('Sunbaked Canyon', [4, 'land', 'none', 'RW horizon land'])
-add_cards('Sacred Foundry', [2, 'land', 'none', 'RW shock land'])
-add_cards('Bloodstained Mire', [3, 'land', 'none', 'RB fetch'])
-add_cards('Mountain', [3, 'basic land', 'none', 'R basic'])
-add_cards('Stomping Grounds', [1, 'land', 'none', 'RG shock land'])
-
-
-# Once all cards have been added, execute the file in your terminal
 print(generate_hand())
 
