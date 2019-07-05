@@ -61,7 +61,9 @@ def generate_hand():
 
 
 
-
+# Clear out this section, just make sure to follow the correct syntax: add_cards('card_name', [number in deck, 'card type', 'mana cost', 'notable traits'])
+# Mana costs
+# C = Colorless, R = Red, W = White, G = Green, B = Black, U = Blue
 add_cards('Light Up The Stage', [3, 'sorcery', 'CCR', 'spectacle'])
 add_cards('Lightning Bolt', [4, 'instant', 'R', ])
 add_cards('Goblin Guide', [4, 'creature', 'R', 'haste'])
@@ -84,7 +86,6 @@ add_cards('Mountain', [3, 'basic land', 'none', 'R basic'])
 add_cards('Stomping Grounds', [1, 'land', 'none', 'RG shock land'])
 
 
-# print(generate_hand())
+# Once all cards have been added, execute the file in your terminal
 print(generate_hand())
-
 
